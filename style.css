@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700|Quicksand:300,400,500,600,700&display=swap');
+html, body {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	background-color: #f6f8fc;
+}
+
+header {
+	width: 100%;
+	height: 100px;
+	text-align: center;
+	padding: 30px 0px 0px 0px;
+	color: #3750ff;
+}
+
+h2{
+	font-family: Quicksand;
+	font-size: 28px;
+	font-weight: 500;
+	margin-top: 5px;
+}
+
+#heading{
+	font-size: 32px;
+	font-family: Comfortaa;
+	font-weight: 700;
+}
+
+#compass{
+	width: 100%;
+}
+
+#left{
+	width: 800px;
+	padding: 50px;
+	margin: 0 auto;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 5px 5px #e8e8e8;
+	text-align: center;
+}
+
+#input_param{
+}
+
+#age_title{
+	font-family: "Quicksand";
+	font-size: 13px;
+	color: #555555;
+	font-weight: 700;
+	width: 100px;
+	text-align: left;
+	letter-spacing: 2px;
+}
+
+#age_input{
+	width: 200px;
+	height: 40px;
+	border: none;
+	border-bottom: 2px solid #e2e2e2;
+	background-color: #f6f8fc;
+	font-family: Quicksand;
+	font-size: 28px;
+	margin-bottom: 50px;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#age_input:focus {
+	outline: none;
+	border-color: #3750ff;
+}
+
+input[type=radio] {
+	display: none;
+}
+
+input[type=submit] {
+	width: 170px;
+	height: 45px;
+	color: white;
+	background-color: #3750ff;
+	border: none;
+	border-radius: 5px;
+	font-family: Quicksand;
+	text-align: left;
+	padding: 0px 0px 0px 20px;
+	font-weight: 700;
+	font-size: 15px;
+
+}
+
+#gender_div {
+	 margin-top: 30px;
+	 margin-bottom: 30px;
+}
+
+label{
+	background-color: #f6f8fc;
+	padding: 30px 40px 25px 40px;
+	display: inline-block;
+	border: 2px solid #e2e2e2;
+	border-radius: 12px;
+}
+
+:checked+label{
+	background-color: #ffffff;
+	border-color: #3750ff;
+}
+
+img {
+	width: 90px;
+	height: 90px;
+}
+
+#ethnicity_input {
+	appearance: none;
+	-webkit-appearance: none;
+	outline: none;
+	border: 2px solid #e2e2e2;
+	background-color: #f6f8fc;
+	padding: 10px 10px 10px 18px;
+	font-family: Quicksand;
+	font-size: 25px;
+	font-weight: 500;
+	margin-left: 0px;
+	margin-bottom: 50px;
+}
+
+#summary-div{
+	font-family: Quicksand;
+	font-size: 24px;
+	font-weight: 500;
+	background-color: white;
+	padding: 30px;
+	border-radius: 12px;
+	width: 650px;
+	text-align: center;
+	box-shadow: 5px 5px #e8e8e8;
+	margin: 0 auto;
+}
