@@ -3,9 +3,12 @@ Version 1.0
 [changelog]: tbd
 
 [Local Server Setup]:
-Windows:
-The latest downloads of MAMP (My Apache - MySQL - PHP server) are located at:
-    - https://www.mamp.info/en/downloads/
+
+# Sleep Normas
+## Local Server Setup
+** We are using MAMP (My Apache - MySQL - PHP server), but any such equivalent program can be utilized (WAMP, XAMPP, etc.) **
+
+The latest version of MAMP is located [here](https://www.mamp.info/en/downloads/)
 
 Download the latest version, follow set up and open preferences pane.
 Note: MAMP Pro is not required in order for the simple server to work.
