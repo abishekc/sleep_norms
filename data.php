@@ -5,29 +5,56 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<?php 
+<?php
+
+	//login details - need to updated later.
 	$servername = "localhost";
 	$username = "sleep";
 	$password = "password";
 	$db = "myDB";
+	$sql = ''
 
 	$slp_effs = array();
 	$ages = array();
 
-	// Create connection
+	//connection reference is created
 	$conn = new mysqli($servername, $username, $password, $db);
-	// Check connection
+
+
+	//catch any errors associated with connection interference
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
 	} 
 
-	// Create database
+	//form _POST values
 	$age = $_POST['age'];
 	$sex = $_POST['sex'];
 	$ethnicity = $_POST['ethnicity'];
+
 	$ul = $age + 2.5;
 	$ll = $age - 2.5;
-	if($ethnicity == prefer) {
+	echo("here")
+	/*function sql_query($age, $sex, $ethnicity) {
+		echo("here")
+		//set proper gender for candidate
+		if($sex != male) {
+			$sex = ''
+		} else {
+			$sex = 1
+		}
+
+		if($ethnicity == prefer) {
+			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = $sex";
+		} else {
+			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = 1 AND race = '$ethnicity'"
+		}
+	}
+
+	sql_query($age, $sex, $ethnicity)*/
+
+	
+
+	/*if($ethnicity == prefer) {
 		if($sex == male) {
 			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = 1";
 		} else {
@@ -41,7 +68,8 @@
 			$sex = female;
 			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male != 1 AND race = '$ethnicity'";
 		}
-	}
+	}*/
+
 	$result = $conn->query($sql);
 
 	if ($result) {
