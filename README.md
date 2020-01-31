@@ -4,11 +4,11 @@ Version 1.0
 
 [Local Server Setup]:
 
-# Sleep Normas
+# Sleep Norms
 ## Local Server Setup
 ** We are using MAMP (My Apache - MySQL - PHP server), but any such equivalent program can be utilized (WAMP, XAMPP, etc.) **
 
-The latest version of MAMP is located [here](https://www.mamp.info/en/downloads/)
+The latest version of MAMP is located [here](https://www.mamp.info/en/downloads/).
 
 Download the latest version, follow set up and open preferences pane.
 Note: MAMP Pro is not required in order for the simple server to work.
