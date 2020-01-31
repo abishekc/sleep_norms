@@ -6,7 +6,7 @@ Version 1.0
 
 # Sleep Norms
 ## Local Server Setup
-** We are using MAMP (My Apache - MySQL - PHP server), but any such equivalent program can be utilized (WAMP, XAMPP, etc.) **
+**We are using MAMP (My Apache - MySQL - PHP server), but any such equivalent program can be utilized (WAMP, XAMPP, etc.)**
 
 The latest version of MAMP is located [here](https://www.mamp.info/en/downloads/).
 
