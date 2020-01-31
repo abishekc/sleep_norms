@@ -70,7 +70,7 @@
 		}
 	}*/
 
-	$result = $conn->query($sql);
+	/*$result = $conn->query($sql);
 
 	if ($result) {
 	    while ($row = $result->fetch_assoc()) {
@@ -82,7 +82,7 @@
 	}
 
 	$average = array_sum($slp_effs)/count($slp_effs);
-	$conn->close();
+	$conn->close();*/
 ?>
 <header>
 	<h1 id="heading">sleep</h1>
