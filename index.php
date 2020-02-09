@@ -40,6 +40,16 @@
 			    <option value="prefer">Prefer Not to Say</option>
 			</select><br>
 
+			<h2>What is your weight?</h2>
+			<div id="weight_div">
+				<input id="age_input" type="text" name="weight"><br>
+			</div>
+
+			<h2>What is your height?</h2>
+			<div id="height_div">
+				<input id="age_input" type="text" name="height"><br>
+			</div>
+
 			<input type="submit" value="SUBMIT">
 		</form>
 	</div>

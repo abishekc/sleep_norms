@@ -12,7 +12,6 @@
 	$username = "sleep";
 	$password = "password";
 	$db = "myDB";
-	$sql = ''
 
 	$slp_effs = array();
 	$ages = array();
@@ -30,10 +29,15 @@
 	$age = $_POST['age'];
 	$sex = $_POST['sex'];
 	$ethnicity = $_POST['ethnicity'];
+	$weight = $_POST['weight'];
+	$height = $_POST['height'];
 
+	//ranges, set
 	$ul = $age + 2.5;
 	$ll = $age - 2.5;
-	echo("here")
+	$bmi = 703 * ($weight/($height*$height));
+	echo($bmi);
+
 	/*function sql_query($age, $sex, $ethnicity) {
 		echo("here")
 		//set proper gender for candidate
@@ -84,26 +88,26 @@
 	$average = array_sum($slp_effs)/count($slp_effs);
 	$conn->close();*/
 ?>
-<header>
+<!--<header>
 	<h1 id="heading">sleep</h1>
 </header>
 <div id="summary-div">
 <span id="summary">
 	For a <?php echo $ethnicity; echo " "; echo $sex; ?> in 
 	<?php 
-		if ($sex == male) {
+		/*if ($sex == male) {
 			echo " his ";
 		} else {
 			echo " her ";
 		}
-		echo $age
+		echo $age*/
 	?>'s, average sleep efficacy is:
-	<?php echo $average; ?>
+	<?php /*echo $average;*/ ?>
 </span>
-</div>
+</div>-->
 </body>
 
-<canvas id="myChart"></canvas>
+<!--<canvas id="myChart"></canvas>
 <script>
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var chart = new Chart(ctx, {
@@ -115,7 +119,7 @@
 	        labels: ['Sleep Efficacy'],
 	        datasets: [{
 	            label: 'Sleep Efficacy',
-	            data: [<?php echo $average ?>, 100 - <?php echo $average ?>],
+	            data: [<?php /*echo $average ?>, 100 - <?php echo $average*/ ?>],
 	            backgroundColor: [
 	            	"#FF6384",
 	            	"#FFFFFF"
@@ -126,5 +130,5 @@
 	    // Configuration options go here
 	    options: {}
 	});
-</script>
+</script>-->
 </html>
