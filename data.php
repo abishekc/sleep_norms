@@ -15,6 +15,10 @@
 
 	$slp_effs = array();
 	$ages = array();
+	$st1p = array();
+	$st2p = array();
+	$st34p = array();
+	$remp = array();
 
 	//connection reference is created
 	$conn = new mysqli($servername, $username, $password, $db);
@@ -41,14 +45,59 @@
 	$sleep_stages = "timest1p, timest2p, timest34p, timeremp";
 
 	$sql = "SELECT $data FROM `TABLE 1` WHERE age < 22.5";
-	echo($sql);
+	$sql_two = "SELECT $sleep_stages FROM `TABLE 1` WHERE age < 22.5";
 
 	$result = $conn->query($sql);
 
-	sql_query();
+	$result_two = $conn->query($sql_two);
+
+	if ($result_two) {
+		while ($row = $result_two->fetch_assoc()) {
+			#$total = $row["timest1p"] + $row["timest2p"] + $row["timest34p"] + $row["timesremp"];
+			array_push($st1p, $row["timest1p"]);
+			array_push($st2p, $row["timest2p"]);
+			array_push($st34p, $row["timest34p"]);
+			array_push($remp, $row["timeremp"]);
+		}
+	}
+
+	$st1p_total = 0.0;
+	foreach ($st1p as $val) {
+		if (is_nan($val) != true){
+			$st1p_total += $val;
+		}
+	}
+	echo($st1p_total/count($st1p));
+	echo("\n");
+
+	$st2p_total = 0.0;
+	foreach ($st2p as $val) {
+		if (is_nan($val) != true){
+			$st2p_total += $val;
+		}
+	}
+	echo($st2p_total/count($st2p));
+	echo("\n");
+
+	$st34p_total = 0.0;
+	foreach ($st34p as $val) {
+		if (is_nan($val) != true){
+			$st34p_total += $val;
+		}
+	}
+	echo($st34p_total/count($st34p));
+	echo("\n");
+
+	$remp_total = 0.0;
+	foreach ($remp as $val) {
+		if (is_nan($val) != true){
+			$remp_total += $val;
+		}
+	}
+	echo($remp_total/count($remp));
+	echo("\n");
 
 	if ($result) {
-		echo("here");
 	    while ($row = $result->fetch_assoc()) {
 	    	array_push($slp_effs, (int)$row["slp_eff"]);
 	    	array_push($ages, (int)$row["age"]);
