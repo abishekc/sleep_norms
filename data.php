@@ -36,7 +36,26 @@
 	$ul = $age + 2.5;
 	$ll = $age - 2.5;
 	$bmi = 703 * ($weight/($height*$height));
-	echo($bmi);
+
+	$data = "slp_eff, slpprdp, waso, rem_lat";
+	$sleep_stages = "timest1p, timest2p, timest34p, timeremp";
+
+	$sql = "SELECT $data FROM `TABLE 1` WHERE age < 22.5";
+	echo($sql);
+
+	$result = $conn->query($sql);
+
+	sql_query();
+
+	if ($result) {
+		echo("here");
+	    while ($row = $result->fetch_assoc()) {
+	    	array_push($slp_effs, (int)$row["slp_eff"]);
+	    	array_push($ages, (int)$row["age"]);
+	    }
+	} else {
+		echo("Error description: " . mysqli_error($conn));
+	}
 
 	/*function sql_query($age, $sex, $ethnicity) {
 		echo("here")

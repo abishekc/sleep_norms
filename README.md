@@ -37,7 +37,7 @@ The setting should be as follows:
 
 IMPORTANT: leave the other login information to their defaults. Click the 'Check All' button near Global Privileges in order to grant all priveliges to this user account.
 
-Clikc Go at the bottom in order to set the user account.
+Click Go at the bottom in order to set the user account.
 
 Once done, click the 'Databases' tab at the top of the webpage. There should be an option to create a database near the top. Under the 'Database Name' textfield, enter 'myDB' and make sure the dropdown is set to 'utf8_general_ci' and click create.
 
@@ -45,5 +45,5 @@ Once done, click on 'myDB' in the table below. This is now the seetings page for
 
 Choose the df_all.csv file to upload. The format should be selected .csv. Leave the default options except for 'Lines terminated with' which should be '\n' or 'auto'. The first option that says 'The first line of the file onctains the table column names', should be checked. Click Go. This process will take a while, do NOT close thewindow or reload the page, you will have to do the entire process once again. After doing so, there should be an TABLE 1 option under myDB under the file structure on the left pane of the window. Click on this table and you should see all the columns and their names and variable types. If you click the 'Browse' option near the top, you can scroll through all the data uploaded.
 
-After all these setps are completed, you can go ahead and open up your prefered browser and in the address bar, type in 'localhost' or 'localhost:8888' or 'localhost:8889'. One of these options should work. Otherwise the TCP/IP ports maybe be in use already.t
+After all these steps are completed, you can go ahead and open up your prefered browser and in the address bar, type in 'localhost' or 'localhost:8888' or 'localhost:8889'. One of these options should work. Otherwise the TCP/IP ports maybe be in use already.t
 
