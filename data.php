@@ -40,12 +40,16 @@
 	$ul = $age + 2.5;
 	$ll = $age - 2.5;
 	$bmi = 703 * ($weight/($height*$height));
+	$bmi_ul = $bmi + 2.5;
+	$bmi_ll = $bmi - 2.5;
+	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul";
+	#echo($conditions);
 
 	$data = "slp_eff, slpprdp, waso, rem_lat";
 	$sleep_stages = "timest1p, timest2p, timest34p, timeremp";
 
-	$sql = "SELECT $data FROM `TABLE 1` WHERE age < 22.5";
-	$sql_two = "SELECT $sleep_stages FROM `TABLE 1` WHERE age < 22.5";
+	$sql = "SELECT $data FROM `TABLE 1` WHERE $conditions";
+	$sql_two = "SELECT $sleep_stages FROM `TABLE 1` WHERE $conditions";
 
 	$result = $conn->query($sql);
 
