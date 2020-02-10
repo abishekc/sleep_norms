@@ -19,6 +19,9 @@
 	$st2p = array();
 	$st34p = array();
 	$remp = array();
+	$waso = array();
+	$slpprdp = array();
+	$rem_lat = array();
 
 	//connection reference is created
 	$conn = new mysqli($servername, $username, $password, $db);
@@ -37,12 +40,19 @@
 	$height = $_POST['height'];
 
 	//ranges, set
-	$ul = $age + 2.5;
-	$ll = $age - 2.5;
+	$ul = $age + 3;
+	$ll = $age - 3;
 	$bmi = 703 * ($weight/($height*$height));
-	$bmi_ul = $bmi + 2.5;
-	$bmi_ll = $bmi - 2.5;
-	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul";
+	$bmi_ul = $bmi + 3;
+	$bmi_ll = $bmi - 3;
+
+	if($sex == "male") {
+		$sex = "male = 1";
+	} else {
+		$sex = "male != 1";
+	}
+
+	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex";
 	#echo($conditions);
 
 	$data = "slp_eff, slpprdp, waso, rem_lat";
@@ -65,14 +75,27 @@
 		}
 	}
 
+	// Function to calculate square of value - mean
+function sd_square($x, $mean) { return pow($x - $mean,2); }
+
+// Function to calculate standard deviation (uses sd_square)    
+function sd($array) {
+    
+// square root of sum of squares devided by N-1
+return sqrt(array_sum(array_map("sd_square", $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / (count($array)-1) );
+}
+
 	$st1p_total = 0.0;
+	$st1p_stdev = array();
 	foreach ($st1p as $val) {
 		if (is_nan($val) != true){
 			$st1p_total += $val;
+			array_push($st1p_stdev, $val);
 		}
 	}
+	echo("st1p: ");
 	echo($st1p_total/count($st1p));
-	echo("\n");
+	?><br><?php
 
 	$st2p_total = 0.0;
 	foreach ($st2p as $val) {
@@ -80,8 +103,9 @@
 			$st2p_total += $val;
 		}
 	}
+	echo("st2p: ");
 	echo($st2p_total/count($st2p));
-	echo("\n");
+	?><br><?php
 
 	$st34p_total = 0.0;
 	foreach ($st34p as $val) {
@@ -89,8 +113,9 @@
 			$st34p_total += $val;
 		}
 	}
+	echo("st34p: ");
 	echo($st34p_total/count($st34p));
-	echo("\n");
+	?><br><?php
 
 	$remp_total = 0.0;
 	foreach ($remp as $val) {
@@ -98,8 +123,9 @@
 			$remp_total += $val;
 		}
 	}
+	echo("remp: ");
 	echo($remp_total/count($remp));
-	echo("\n");
+	?><br><?php
 
 	if ($result) {
 	    while ($row = $result->fetch_assoc()) {
@@ -109,6 +135,8 @@
 	} else {
 		echo("Error description: " . mysqli_error($conn));
 	}
+	echo("subjects: ");
+	echo(count($slp_effs))
 
 	/*function sql_query($age, $sex, $ethnicity) {
 		echo("here")
