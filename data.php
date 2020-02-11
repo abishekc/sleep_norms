@@ -140,5 +140,14 @@
 	echo("subjects: ");
 	echo(count($slp_effs));
 ?>
+<canvas id = "sleep_cycle_chart" width="400" height="400"></canvas>
+<script>
+	var context = document.getElementById('sleep_cycle_chart');
+	var sleep_cycle_doughnut = new Chart(context, {
+		type = 'pie',
+		data: 
+	});
+</script>
+
 </body>
 </html>
