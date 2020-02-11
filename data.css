@@ -1,0 +1,42 @@
+#compass {
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#upper {
+	width: 1200px;
+}
+
+#lower {
+	width: 1200px;
+}
+
+#button_one {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    float: left;
+}
+#button_two {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    float: left;
+}
+#button_three {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    float: left;
+}
+#button_four {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    float: left;
+}
+
+#wrapper {
+	width: 400px;
+}

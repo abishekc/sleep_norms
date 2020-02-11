@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html>
+
+<!------- HEADER START -------->
 <head>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
+<link rel="stylesheet" type="text/css" href="data.css">
 <?php
 	//Server login details. Need to be put in a separate config file.
 	$servername = "localhost";
@@ -39,8 +39,8 @@
 	$height = $_POST['height'];
 
 	//ranges, set
-	$ul = $age + 3;
-	$ll = $age - 3;
+	$ul = $age + 5;
+	$ll = $age - 5;
 	$bmi = 703 * ($weight/($height*$height));
 	$bmi_ul = $bmi + 3;
 	$bmi_ll = $bmi - 3;
@@ -113,21 +113,11 @@
 		return (float)sqrt($variance);
 	}
 
-	echo("st1p: ");
-	echo(clean_average($st1p));
-	?><br><?php
-
-	echo("st2p: ");
-	echo(clean_average($st2p));
-	?><br><?php
-
-	echo("st34p: ");
-	echo(clean_average($st34p));
-	?><br><?php
-
-	echo("remp: ");
-	echo(clean_average($remp));
-	?><br><?php
+	$sleep_stages = array();
+	array_push($sleep_stages, clean_average($st1p));
+	array_push($sleep_stages, clean_average($st2p));
+	array_push($sleep_stages, clean_average($st34p));
+	array_push($sleep_stages, clean_average($remp));
 
 	if ($result) {
 	    while ($row = $result->fetch_assoc()) {
@@ -140,14 +130,49 @@
 	echo("subjects: ");
 	echo(count($slp_effs));
 ?>
-<canvas id = "sleep_cycle_chart" width="400" height="400"></canvas>
+</head>
+<!------- HEADER END -------->
+
+<!------- BODY START -------->
+<body>
+
+<div id="compass">
+	<div id="upper">
+		<div id="button_one"></div>
+        <div id="button_two"></div>
+        <div id="button_three"></div>
+        <div id="button_four"></div>
+	</div>
+	<div id="lower">
+		<div id="wrapper">
+			<canvas id = "sleep_cycle_chart" width="400" height="400"></canvas>
+		</div>
+	</div>
+</div>
+
 <script>
-	var context = document.getElementById('sleep_cycle_chart');
-	var sleep_cycle_doughnut = new Chart(context, {
-		type = 'pie',
-		data: 
+	var context = document.getElementById('sleep_cycle_chart').getContext('2d');
+	var sleep_cycle_chart = new Chart(context, {
+	    // The type of chart we want to create
+	    type: 'doughnut',
+
+	    // The data for our dataset
+	    data: {
+	        labels: ['Stage 1', "Stage 2", "Stage 3/4", "REM"],
+	        datasets: [{
+	            data: <?php echo(json_encode($sleep_stages)) ?>,
+	            backgroundColor: [
+	            	"#FF6384",
+	            	"#FFFFFF"
+	            ]
+	        }]
+	    },
+
+	    // Configuration options go here
+	    options: {}
 	});
 </script>
-
 </body>
+<!------- BODY END -------->
+
 </html>
