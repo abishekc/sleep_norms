@@ -4,7 +4,9 @@
 <!------- HEADER START -------->
 <head>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
 <link rel="stylesheet" type="text/css" href="data.css">
+    
 <?php
 	//Server login details. Need to be put in a separate config file.
 	$servername = "localhost";
@@ -45,12 +47,14 @@
 	$bmi_ul = $bmi + 3;
 	$bmi_ll = $bmi - 3;
 
+    //Set $sex variable based on male or female input.
 	if($sex == "male") {
 		$sex = "male = 1";
 	} else {
 		$sex = "male != 1";
 	}
 
+    //Prepare conditions and select statement data.
 	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex";
 
 	$data = "slp_eff, slpprdp, waso, rem_lat";
@@ -59,10 +63,11 @@
 	$sql = "SELECT $data FROM `TABLE 1` WHERE $conditions";
 	$sql_two = "SELECT $sleep_stages FROM `TABLE 1` WHERE $conditions";
 
+    //Run sql queries on database and fetch data.
 	$result = $conn->query($sql);
-
 	$result_two = $conn->query($sql_two);
 
+    //
 	if ($result_two) {
 		while ($row = $result_two->fetch_assoc()) {
 			#$total = $row["timest1p"] + $row["timest2p"] + $row["timest34p"] + $row["timesremp"];
@@ -91,13 +96,15 @@
 	//Provides 'clean' average - i.e. drops NaN or Null values from set before calculation.
 	function clean_average($input) {
 		$total = 0;
+        $count = 0;
 		foreach ($input as $val) {
 			if (is_nan($val) != true) {
 				$total += $val;
+                $count += 1;
 			}
 		}
 
-		return ($total/count($input));
+		return ($total/$count);
 	}
 
 	//Provides 'clean' stdev - i.e. drops NaN or Null values from set before calculation.
@@ -123,10 +130,13 @@
 	    while ($row = $result->fetch_assoc()) {
 	    	array_push($slp_effs, (int)$row["slp_eff"]);
 	    	array_push($ages, (int)$row["age"]);
+            array_push($waso, (int)$row["waso"]);
+            array_push($slpprdp, (int)$row["slpprdp"]);
 	    }
 	} else {
 		echo("Error description: " . mysqli_error($conn));
 	}
+    
 	echo("subjects: ");
 	echo(count($slp_effs));
 ?>
@@ -137,42 +147,98 @@
 <body>
 
 <div id="compass">
-	<div id="upper">
-		<div id="button_one"></div>
-        <div id="button_two"></div>
-        <div id="button_three"></div>
-        <div id="button_four"></div>
-	</div>
-	<div id="lower">
-		<div id="wrapper">
-			<canvas id = "sleep_cycle_chart" width="400" height="400"></canvas>
-		</div>
-	</div>
+	<div id="upper-wrapper">
+        <div id="upper">
+            <div id="button_one">Sleep Stages
+                <canvas id = "sleep_cycle_chart" width="400" height="400"></canvas>
+            </div>
+            <div id="button_two">
+                Wake Time During Sleep
+                <h1><?php echo((float)clean_average($waso)); ?></h1>
+            </div>
+            <div id="button_three">
+                Sleep Efficiency<br>
+                <h1><?php echo((int)clean_average($slp_effs)); ?></h1>
+            </div>
+            <div id="button_four">
+                Total Sleep Time<br>
+                <h1><?php echo((int)clean_average($slpprdp)); ?></h1>
+            </div>
+        </div>
+    </div>
+    
+    <div id ="lower-wrapper">
+        hello
+        <div id="lower">
+            <div id ="graph">
+                <canvas id = "normal_distribution" width="1200" height="400"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    function stdNormalDistribution (x) {
+        return Math.pow(Math.E,-Math.pow(x,2)/2)/Math.sqrt(2*Math.PI);
+    }
+    
+    function plotNormalWith(x, mu, stdev) {
+        return (1 / (stdev*Math.sqrt(2*Math.PI))) * 
+                (Math.pow(
+                    Math.E, 
+                    ((-0.5)*Math.pow(((x - mu)/(stdev)), 2))
+                ))
+    }
+</script>
 
+<!------- GRAPH OPTIONS START ------->
 <script>
 	var context = document.getElementById('sleep_cycle_chart').getContext('2d');
 	var sleep_cycle_chart = new Chart(context, {
-	    // The type of chart we want to create
 	    type: 'doughnut',
-
-	    // The data for our dataset
 	    data: {
 	        labels: ['Stage 1', "Stage 2", "Stage 3/4", "REM"],
 	        datasets: [{
 	            data: <?php echo(json_encode($sleep_stages)) ?>,
 	            backgroundColor: [
 	            	"#FF6384",
-	            	"#FFFFFF"
+	            	"#FF6384",
+                    "#FF6384",
+                    "#FF6384"
 	            ]
 	        }]
 	    },
-
-	    // Configuration options go here
 	    options: {}
 	});
 </script>
+<script>
+    var ctx = document.getElementById('normal_distribution').getContext('2d');
+    points = []
+    for (x = -30; x < 30; x++){
+        points.push({x:x , y: plotNormalWith(x, <?php echo(json_encode(clean_average($waso))); ?>, <?php echo(json_encode(clean_stdev($waso))); ?>)});
+    }
+    var scatterChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: 'Scatter Dataset',
+            data: points
+        }]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: false
+                },
+                type: 'linear',
+                position: 'bottom'
+            }]
+        }
+    }
+});
+</script>
+<!------- GRAPH OPTIONS END ------->
+    
 </body>
 <!------- BODY END -------->
-
 </html>
