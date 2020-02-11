@@ -6,13 +6,13 @@
 </head>
 <body>
 <?php
-
-	//login details - need to updated later.
+	//Server login details. Need to be put in a separate config file.
 	$servername = "localhost";
 	$username = "sleep";
 	$password = "password";
 	$db = "myDB";
 
+	//Empty arrays required to populate with incomding data.
 	$slp_effs = array();
 	$ages = array();
 	$st1p = array();
@@ -23,11 +23,10 @@
 	$slpprdp = array();
 	$rem_lat = array();
 
-	//connection reference is created
+	//Connection reference to SQL is created.
 	$conn = new mysqli($servername, $username, $password, $db);
 
-
-	//catch any errors associated with connection interference
+	//Catch any errors with connection interference.
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
 	} 
@@ -53,7 +52,6 @@
 	}
 
 	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex";
-	#echo($conditions);
 
 	$data = "slp_eff, slpprdp, waso, rem_lat";
 	$sleep_stages = "timest1p, timest2p, timest34p, timeremp";
@@ -75,56 +73,60 @@
 		}
 	}
 
-	// Function to calculate square of value - mean
-function sd_square($x, $mean) { return pow($x - $mean,2); }
-
-// Function to calculate standard deviation (uses sd_square)    
-function sd($array) {
-    
-// square root of sum of squares devided by N-1
-return sqrt(array_sum(array_map("sd_square", $array, array_fill(0,count($array), (array_sum($array) / count($array)) ) ) ) / (count($array)-1) );
-}
-
-	$st1p_total = 0.0;
-	$st1p_stdev = array();
-	foreach ($st1p as $val) {
-		if (is_nan($val) != true){
-			$st1p_total += $val;
-			array_push($st1p_stdev, $val);
+	//Catches error on sql query.
+	function sql_query($sql) {
+		$result = $conn->query($sql);
+		if ($result) {
+			return $result;
+		} else {
+			echo("Error description: " . mysqli_error($conn));
 		}
 	}
+
+	//Returns square error given the mean and a single value from a set.
+	function square_errors($x, $mean) {
+		return pow($x - $mean, 2);
+	}
+
+	//Provides 'clean' average - i.e. drops NaN or Null values from set before calculation.
+	function clean_average($input) {
+		$total = 0;
+		foreach ($input as $val) {
+			if (is_nan($val) != true) {
+				$total += $val;
+			}
+		}
+
+		return ($total/count($input));
+	}
+
+	//Provides 'clean' stdev - i.e. drops NaN or Null values from set before calculation.
+	function clean_stdev($input, $sample = false) {
+		$average = clean_average($input);
+		$variance = 0.0;
+
+		foreach ($input as $val){
+			$variance += pow($val - $average, 2);
+		}
+
+		$variance /= ($sample ? count($input) - 1 : count($input));
+		return (float)sqrt($variance);
+	}
+
 	echo("st1p: ");
-	echo($st1p_total/count($st1p));
+	echo(clean_average($st1p));
 	?><br><?php
 
-	$st2p_total = 0.0;
-	foreach ($st2p as $val) {
-		if (is_nan($val) != true){
-			$st2p_total += $val;
-		}
-	}
 	echo("st2p: ");
-	echo($st2p_total/count($st2p));
+	echo(clean_average($st2p));
 	?><br><?php
 
-	$st34p_total = 0.0;
-	foreach ($st34p as $val) {
-		if (is_nan($val) != true){
-			$st34p_total += $val;
-		}
-	}
 	echo("st34p: ");
-	echo($st34p_total/count($st34p));
+	echo(clean_average($st34p));
 	?><br><?php
 
-	$remp_total = 0.0;
-	foreach ($remp as $val) {
-		if (is_nan($val) != true){
-			$remp_total += $val;
-		}
-	}
 	echo("remp: ");
-	echo($remp_total/count($remp));
+	echo(clean_average($remp));
 	?><br><?php
 
 	if ($result) {
@@ -136,99 +138,7 @@ return sqrt(array_sum(array_map("sd_square", $array, array_fill(0,count($array),
 		echo("Error description: " . mysqli_error($conn));
 	}
 	echo("subjects: ");
-	echo(count($slp_effs))
-
-	/*function sql_query($age, $sex, $ethnicity) {
-		echo("here")
-		//set proper gender for candidate
-		if($sex != male) {
-			$sex = ''
-		} else {
-			$sex = 1
-		}
-
-		if($ethnicity == prefer) {
-			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = $sex";
-		} else {
-			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = 1 AND race = '$ethnicity'"
-		}
-	}
-
-	sql_query($age, $sex, $ethnicity)*/
-
-	
-
-	/*if($ethnicity == prefer) {
-		if($sex == male) {
-			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = 1";
-		} else {
-			$sex = female;
-			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male != 1";
-		}
-	} else {
-		if($sex == male) {
-			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male = 1 AND race = '$ethnicity'";
-		} else {
-			$sex = female;
-			$sql = "SELECT age, slp_eff FROM `TABLE 1` WHERE age < $ul AND age > $ll AND male != 1 AND race = '$ethnicity'";
-		}
-	}*/
-
-	/*$result = $conn->query($sql);
-
-	if ($result) {
-	    while ($row = $result->fetch_assoc()) {
-	    	array_push($slp_effs, (int)$row["slp_eff"]);
-	    	array_push($ages, (int)$row["age"]);
-	    }
-	} else {
-		echo("Error description: " . mysqli_error($conn));
-	}
-
-	$average = array_sum($slp_effs)/count($slp_effs);
-	$conn->close();*/
+	echo(count($slp_effs));
 ?>
-<!--<header>
-	<h1 id="heading">sleep</h1>
-</header>
-<div id="summary-div">
-<span id="summary">
-	For a <?php echo $ethnicity; echo " "; echo $sex; ?> in 
-	<?php 
-		/*if ($sex == male) {
-			echo " his ";
-		} else {
-			echo " her ";
-		}
-		echo $age*/
-	?>'s, average sleep efficacy is:
-	<?php /*echo $average;*/ ?>
-</span>
-</div>-->
 </body>
-
-<!--<canvas id="myChart"></canvas>
-<script>
-	var ctx = document.getElementById('myChart').getContext('2d');
-	var chart = new Chart(ctx, {
-	    // The type of chart we want to create
-	    type: 'doughnut',
-
-	    // The data for our dataset
-	    data: {
-	        labels: ['Sleep Efficacy'],
-	        datasets: [{
-	            label: 'Sleep Efficacy',
-	            data: [<?php /*echo $average ?>, 100 - <?php echo $average*/ ?>],
-	            backgroundColor: [
-	            	"#FF6384",
-	            	"#FFFFFF"
-	            ]
-	        }]
-	    },
-
-	    // Configuration options go here
-	    options: {}
-	});
-</script>-->
 </html>
