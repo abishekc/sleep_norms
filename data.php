@@ -154,7 +154,7 @@
     <div id="nav-wrapper">
         <div id="nav">
             sleep norms
-            <img src="./moon_one.png" />
+            <img src="./img/moon_one.png" />
         </div>
     </div>
 	<div id="upper-wrapper">
