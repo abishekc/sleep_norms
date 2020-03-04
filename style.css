@@ -4,7 +4,6 @@ html, body {
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
-	background-color: #f6f8fc;
 }
 
 header {
@@ -20,6 +19,11 @@ h2{
 	font-size: 28px;
 	font-weight: 500;
 	margin-top: 5px;
+}
+
+#wrapper {
+	height: 200px;
+	width: 200px;
 }
 
 #heading{
@@ -38,7 +42,6 @@ h2{
 	margin: 0 auto;
 	background-color: white;
 	border-radius: 10px;
-	box-shadow: 5px 5px #e8e8e8;
 	text-align: center;
 }
 
@@ -139,6 +142,5 @@ img {
 	border-radius: 12px;
 	width: 650px;
 	text-align: center;
-	box-shadow: 5px 5px #e8e8e8;
 	margin: 0 auto;
 }
