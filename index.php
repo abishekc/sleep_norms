@@ -50,6 +50,11 @@
 				<input id="age_input" type="text" name="height"><br>
 			</div>
 
+			<select name="metric" id="ethnicity_input">
+			    <option value="metric">metric</option>
+			    <option value="imperial">imperial</option>
+			</select><br>
+
 			<input type="submit" value="SUBMIT">
 		</form>
 	</div>

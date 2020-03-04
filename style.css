@@ -42,7 +42,6 @@ h2{
 	margin: 0 auto;
 	background-color: white;
 	border-radius: 10px;
-	box-shadow: 5px 5px #e8e8e8;
 	text-align: center;
 }
 
@@ -143,6 +142,5 @@ img {
 	border-radius: 12px;
 	width: 650px;
 	text-align: center;
-	box-shadow: 5px 5px #e8e8e8;
 	margin: 0 auto;
 }
