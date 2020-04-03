@@ -62,7 +62,7 @@
 	}
 
     //Prepare conditions and select statement data.
-	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex";
+	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex AND race = '$ethnicity'";
 
 	$data = "slp_eff, slpprdp, waso, rem_lat";
 	$sleep_stages = "timest1p, timest2p, timest34p, timeremp";
@@ -126,6 +126,19 @@
 		$variance /= ($sample ? count($input) - 1 : count($input));
 		return number_format((float)sqrt($variance), 2);
 	}
+    
+    #Convert Hours into Proper display Text, include percentage for Sleep Stages.
+    function hour_conversion($minutes, $percentage = 1){
+        $rounded_mins = round($minutes * $percentage);
+        $min_left = $rounded_mins % 60;
+        $hours = ($rounded_mins - $min_left) / 60;
+        return $hours . " hours " . $min_left . " minutes";
+    }
+    
+    function stage_conversion($minutes, $stage){
+        $percentage = round((float)clean_average($stage));
+        return $percentage . "% (" . hour_conversion($minutes, $percentage / 100) . ")";
+    }
 
 	$sleep_stages = array();
 	array_push($sleep_stages, clean_average($st1p));
@@ -176,10 +189,10 @@
 							<div id="left-right-wrapper">
 									<div id="left">
 											<h5>AVERAGE</h5>
-											<h1><?php echo(round((float)clean_average($slpprdp))); ?> minutes</h1><br>
+											<h1><?php echo(hour_conversion(clean_average($slpprdp))); ?></h1><br>
 
 											<h5>STANDARD DEVIATION</h5>
-											<h1><?php echo(round((float)clean_stdev($slpprdp))); ?> minutes</h1>
+											<h1><?php echo(hour_conversion(clean_stdev($slpprdp))); ?></h1>
 									</div>
 									<div id="right">
 											<canvas id = "slpprdp_distribution" width="610" height="400"></canvas>
@@ -196,19 +209,19 @@
                     <div id="left">
                         <h5>STAGE N1</h5>
                         <h1 style="color: #64b5f6;">
-                            <?php echo(round((float)clean_average($st1p))); ?>%
+                            <?php echo(stage_conversion(clean_average($slpprdp), $st1p)); ?>
                         </h1><br>
                         <h5>STAGE N2</h5>
                         <h1 style="color: #1e88e5;">
-                            <?php echo(round((float)clean_average($st2p))); ?>%
+                            <?php echo(stage_conversion(clean_average($slpprdp), $st2p)); ?>
                         </h1><br>
                         <h5>STAGE N3</h5>
                         <h1 style="color: #0d47a1;">
-                            <?php echo(round((float)clean_average($st34p))); ?>%
+                            <?php echo(stage_conversion(clean_average($slpprdp), $st34p)); ?>
                         </h1><br>
                         <h5>STAGE REM</h5>
                         <h1 style="color: #e91e63;">
-                            <?php echo(round((float)clean_average($remp))); ?>%
+                            <?php echo(stage_conversion(clean_average($slpprdp), $remp)); ?>
                         </h1>
                     </div>
                     <div id="right" style="width: 400px;">
@@ -244,10 +257,10 @@
                 <div id="left-right-wrapper">
                     <div id="left">
                         <h5>AVERAGE</h5>
-                        <h1><?php echo(round((float)clean_average($waso))); ?> minutes</h1><br>
+                        <h1><?php echo(hour_conversion(clean_average($waso))); ?></h1><br>
 
                         <h5>STANDARD DEVIATION</h5>
-                        <h1><?php echo(round((float)clean_stdev($waso))); ?> minutes</h1>
+                        <h1><?php echo(hour_conversion(clean_stdev($waso))); ?></h1>
                     </div>
                     <div id="right">
                         <canvas id = "normal_distribution" width="610" height="400"></canvas>
