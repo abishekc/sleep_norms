@@ -132,7 +132,17 @@
         $rounded_mins = round($minutes * $percentage);
         $min_left = $rounded_mins % 60;
         $hours = ($rounded_mins - $min_left) / 60;
-        return $hours . " hours " . $min_left . " minutes";
+        
+        #Plurality vs Singularity - Don't show if 0 minutes or 0 hours.
+        if ($hours <= 0) {
+            return $min_left . " minutes";
+        } else if ($minutes == 0) {
+            return $hours . " hours ";
+        } else if ($minutes == 1) {
+            return $hours . " hours " . $min_left . " minute";
+        } else {
+            return $hours . " hours " . $min_left . " minutes";
+        }
     }
     
     function stage_conversion($minutes, $stage){
