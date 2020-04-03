@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,500,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700|Quicksand:300,400,500,600,700&display=swap');
+@font-face {
+  font-family: CircularStd-Book;
+  src: url(./fonts/CircularStd-Book.ttf);
+}
+
+@font-face {
+  font-family: CircularStd-Black;
+  src: url(./fonts/CircularStd-Black.ttf);
+}
+
 html, body {
 	padding: 0px;
 	margin: 0px;
@@ -15,10 +25,19 @@ header {
 }
 
 h2{
-	font-family: Quicksand;
-	font-size: 28px;
+	font-family: "CircularStd-Book";
+	font-size: 22px;
 	font-weight: 500;
 	margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+h3{
+    font-family: "CircularStd-Black";
+    font-size: 14.5px;
+    letter-spacing: 3px;
+    color: #5345d3;
+    margin-top: 5px;
 }
 
 #wrapper {
@@ -40,12 +59,8 @@ h2{
 	width: 800px;
 	padding: 50px;
 	margin: 0 auto;
-	background-color: white;
+	background-color: #f8f8f8;
 	border-radius: 10px;
-	text-align: center;
-}
-
-#input_param{
 }
 
 #age_title{
@@ -63,7 +78,7 @@ h2{
 	height: 40px;
 	border: none;
 	border-bottom: 2px solid #e2e2e2;
-	background-color: #f6f8fc;
+	background-color: #e8f0fe;
 	font-family: Quicksand;
 	font-size: 28px;
 	margin-bottom: 50px;
@@ -119,13 +134,16 @@ img {
 	height: 90px;
 }
 
-#ethnicity_input {
+#ethnicity_input, #unit_input {
 	appearance: none;
 	-webkit-appearance: none;
 	outline: none;
-	border: 2px solid #e2e2e2;
-	background-color: #f6f8fc;
-	padding: 10px 10px 10px 18px;
+    border: none;
+    text-align: left;
+    border-radius: 0px;
+	border-bottom: 2px solid #e2e2e2;
+	/*background-color: #f6f8fc;*/
+	padding: 10px 10px 10px 0px;
 	font-family: Quicksand;
 	font-size: 25px;
 	font-weight: 500;
