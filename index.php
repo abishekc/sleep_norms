@@ -67,12 +67,12 @@
             
             <h2>What is your ethnicity?</h2>
 			<select name="ethnicity" id="ethnicity_input">
+                <option value="prefer">Prefer Not to Say</option>
 			    <option value="white">White</option>
 			    <option value="black">Black</option>
 			    <option value="asian">Asian</option>
 			    <option value="hispanic">Hispanic</option>
 			    <option value="other">Other</option>
-			    <option value="prefer">Prefer Not to Say</option>
 			</select><br>
 
 			<input type="submit" value="SUBMIT">

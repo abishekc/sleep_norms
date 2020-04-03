@@ -60,9 +60,15 @@
 	} else {
 		$sex = "male != 1";
 	}
+    
+    if($ethnicity == "prefer") {
+        $race = '';
+    } else {
+        $race = " AND race = '$ethnicity'";
+    }
 
     //Prepare conditions and select statement data.
-	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex AND race = '$ethnicity'";
+	$conditions = "age > $ll AND age < $ul AND bmi > $bmi_ll AND bmi < $bmi_ul AND $sex$race";
 
 	$data = "slp_eff, slpprdp, waso, rem_lat";
 	$sleep_stages = "timest1p, timest2p, timest34p, timeremp";
