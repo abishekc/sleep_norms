@@ -1,1 +1,2 @@
-sleep efficiency
+Sleep efficiency (SE) is the percentage of the total time in bed that was actually spent asleep. For instance, someone who actually sleeps 6 out of 8 hours spent in bed has a sleep efficiency of 75 percent (6 / 8 * 100 = 75%).
+A low sleep efficiency can result from 1) a long sleep latency, 2) large amount of intra-sleep wakefulness, and/or 3) spending time in bed after the final awakening.

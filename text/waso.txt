@@ -1,1 +1,1 @@
-waso
+Wake after sleep onset (WASO) refers to the duration of wakefulness that occured after sleep onset. A high WASO typically reflects high level of sleep fragmentation.

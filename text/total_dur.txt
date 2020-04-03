@@ -1,1 +1,1 @@
-total sleep duration
+The total sleep time (TST) is the total amount of sleep, in minutes. This includes time from sleep onset to sleep offset and is distributed throughout the sleep time as minutes of the different sleep stages (N1, N2, N3 and REM). Long total sleep time may suggest prior sleep deprivation, medical conditions, or effects of medications. High levels of sleep fragmentation, as defined by recurrent awakenings and/or stage shifts may result in complaints of non-restorative sleep even when an apparently normal total sleep time is present.

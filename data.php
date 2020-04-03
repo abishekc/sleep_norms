@@ -6,7 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.0/math.min.js"></script>
 <link rel="stylesheet" type="text/css" href="data.css">
-    
+
 <?php
 	//Server login details. Need to be put in a separate config file.
 	$servername = "localhost";
@@ -31,7 +31,7 @@
 	//Catch any errors with connection interference.
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
-	} 
+	}
 
 	//form _POST values
 	$age = $_POST['age'];
@@ -137,8 +137,8 @@
 	    while ($row = $result->fetch_assoc()) {
 	    	array_push($slp_effs, (int)$row["slp_eff"]);
 	    	array_push($ages, (int)$row["age"]);
-            array_push($waso, (int)$row["waso"]);
-            array_push($slpprdp, (int)$row["slpprdp"]);
+        array_push($waso, (int)$row["waso"]);
+        array_push($slpprdp, (int)$row["slpprdp"]);
 	    }
 	} else {
 		echo("Error description: " . mysqli_error($conn));
@@ -159,34 +159,56 @@
     </div>
 	<div id="upper-wrapper">
         <div id="upper">
-            <h2>For a <?php echo($print_sex); ?> between in the ages <?php echo($ll); ?> and <?php echo($ul) ?>, average sleep efficiency is <?php echo((float)clean_average($slp_effs)); ?>%.</h2>
+            <h2>The charts below show the typical sleep parameters for a <?php echo($ethnicity); ?> <?php echo($print_sex); ?> between the ages of <?php echo($ll); ?> and <?php echo($ul) ?>, with a Body Mass Index (BMI) between <?php echo(round($bmi_ll, 1)); ?> and <?php echo(round($bmi_ul, 1)); ?> kg/m<sup>2</sup>.
+							  These charts were calculated from <?php echo(count($slp_effs)); ?> unique individuals.
+							</h2>
         </div>
     </div>
-    
+
     <div id ="lower-wrapper">
         <div id="lower">
+
+					<div id="slpprdp">
+							<h1>Total Sleep Time</h1>
+							<p align="justify">
+									<?php include('text/total_dur.txt'); ?>
+							</p>
+							<div id="left-right-wrapper">
+									<div id="left">
+											<h5>AVERAGE</h5>
+											<h1><?php echo(round((float)clean_average($slpprdp))); ?> minutes</h1><br>
+
+											<h5>STANDARD DEVIATION</h5>
+											<h1><?php echo(round((float)clean_stdev($slpprdp))); ?> minutes</h1>
+									</div>
+									<div id="right">
+											<canvas id = "slpprdp_distribution" width="610" height="400"></canvas>
+									</div>
+							</div>
+					</div>
+
             <div id ="sleep-stages">
                 <h1>Sleep Stages</h1>
-                <p>
+                <p align="justify">
                     <?php include('text/sleep_stage.txt'); ?>
                 </p>
                 <div id="left-right-wrapper">
                     <div id="left">
-                        <h5>STAGE 1</h5>
-                        <h1 style="color: #0d47a1;"> 
-                            <?php echo((float)clean_average($st1p)); ?>
-                        </h1><br>
-                        <h5>STAGE 2</h5>
-                        <h1 style="color: #1e88e5;">
-                            <?php echo((float)clean_average($st2p)); ?>
-                        </h1><br>
-                        <h5>STAGE 3 & 4</h5>
+                        <h5>STAGE N1</h5>
                         <h1 style="color: #64b5f6;">
-                            <?php echo((float)clean_average($st34p)); ?>
+                            <?php echo(round((float)clean_average($st1p))); ?>%
                         </h1><br>
-                        <h5>REM</h5>
+                        <h5>STAGE N2</h5>
+                        <h1 style="color: #1e88e5;">
+                            <?php echo(round((float)clean_average($st2p))); ?>%
+                        </h1><br>
+                        <h5>STAGE N3</h5>
+                        <h1 style="color: #0d47a1;">
+                            <?php echo(round((float)clean_average($st34p))); ?>%
+                        </h1><br>
+                        <h5>STAGE REM</h5>
                         <h1 style="color: #e91e63;">
-                            <?php echo((float)clean_average($remp)); ?>
+                            <?php echo(round((float)clean_average($remp))); ?>%
                         </h1>
                     </div>
                     <div id="right" style="width: 400px;">
@@ -194,65 +216,45 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="waso">
-                <h1>Wake Time During Sleep</h1>
-                <p>
-                    <?php include('text/waso.txt'); ?>
-                </p>
-                <div id="left-right-wrapper">
-                    <div id="left">
-                        <h5>AVERAGE</h5>
-                        <h1><?php echo((float)clean_average($waso)); ?></h1><br>
-                        
-                        <h5>STANDARD DEVIATION</h5>
-                        <h1><?php echo((float)clean_stdev($waso)); ?></h1>
-                    </div>
-                    <div id="right">
-                        <canvas id = "normal_distribution" width="610" height="400"></canvas>
-                    </div>
-                </div>
-                <br>
-                <h2>Your results are compiled from <?php echo(count($slp_effs)); ?> subjects.</h2>
-            </div>
-            
+
             <div id="slp-eff">
                 <h1>Sleep Efficiency</h1>
-                <p>
+                <p align="justify">
                     <?php include('text/slp_eff.txt'); ?>
                 </p>
                 <div id="left-right-wrapper">
                     <div id="left">
                         <h5>AVERAGE</h5>
-                        <h1><?php echo((float)clean_average($slp_effs)); ?></h1><br>
-                        
+                        <h1><?php echo(round((float)clean_average($slp_effs))); ?>%</h1><br>
+
                         <h5>STANDARD DEVIATION</h5>
-                        <h1><?php echo((float)clean_stdev($slp_effs)); ?></h1>
+                        <h1><?php echo(round((float)clean_stdev($slp_effs))); ?>%</h1>
                     </div>
                     <div id="right">
                         <canvas id = "slp_eff_distribution" width="610" height="400"></canvas>
                     </div>
                 </div>
             </div>
-            
-            <div id="slpprdp">
-                <h1>Total Sleep Duration</h1>
-                <p>
-                    <?php include('text/total_dur.txt'); ?>
+
+            <div id="waso">
+                <h1>Wake After Sleep Onset</h1>
+                <p align="justify">
+                    <?php include('text/waso.txt'); ?>
                 </p>
                 <div id="left-right-wrapper">
                     <div id="left">
                         <h5>AVERAGE</h5>
-                        <h1><?php echo((float)clean_average($slpprdp)); ?></h1><br>
-                        
+                        <h1><?php echo(round((float)clean_average($waso))); ?> minutes</h1><br>
+
                         <h5>STANDARD DEVIATION</h5>
-                        <h1><?php echo((float)clean_stdev($slpprdp)); ?></h1>
+                        <h1><?php echo(round((float)clean_stdev($waso))); ?> minutes</h1>
                     </div>
                     <div id="right">
-                        <canvas id = "slpprdp_distribution" width="610" height="400"></canvas>
+                        <canvas id = "normal_distribution" width="610" height="400"></canvas>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -260,11 +262,11 @@
     function stdNormalDistribution (x) {
         return Math.pow(Math.E,-Math.pow(x,2)/2)/Math.sqrt(2*Math.PI);
     }
-    
+
     function plotNormalWith(x, mu, stdev) {
-        return (1 / (stdev*Math.sqrt(2*Math.PI))) * 
+        return (1 / (stdev*Math.sqrt(2*Math.PI))) *
                 (Math.pow(
-                    Math.E, 
+                    Math.E,
                     ((-0.5)*Math.pow(((x - mu)/(stdev)), 2))
                 ))
     }
@@ -276,14 +278,14 @@
 	var sleep_cycle_chart = new Chart(context, {
 	    type: 'doughnut',
 	    data: {
-	        labels: ['Stage 1', "Stage 2", "Stage 3/4", "REM"],
+	        labels: ['N1', "N2", "N3", "REM"],
 	        datasets: [{
 	            data: <?php echo(json_encode($sleep_stages)) ?>,
 	            backgroundColor: [
-	            	"#0d47a1",
+	            	"#64b5f6",
 	            	"#1e88e5",
-                    "#64b5f6",
-                    "#e91e63"
+                "#0d47a1",
+                "#e91e63"
 	            ]
 	        }]
 	    },
@@ -297,7 +299,7 @@
         points.push({x:x , y: plotNormalWith(x, <?php echo(json_encode(clean_average($waso))); ?>, <?php echo(json_encode(clean_stdev($waso))); ?>)});
     }
     var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(83,69,211, 0.88)');   
+    gradient.addColorStop(0, 'rgba(83,69,211, 0.88)');
     gradient.addColorStop(1, 'rgba(83,69,211, 0.5)');
     var scatterChart = new Chart(ctx, {
     type: 'line',
@@ -323,7 +325,7 @@
     }
 });
 </script>
-    
+
 <script>
     var ctx = document.getElementById('slp_eff_distribution').getContext('2d');
     points = []
@@ -354,7 +356,7 @@
     }
 });
 </script>
-    
+
 <script>
     var ctx = document.getElementById('slpprdp_distribution').getContext('2d');
     points = []
@@ -386,7 +388,7 @@
 });
 </script>
 <!------- GRAPH OPTIONS END ------->
-    
+
 </body>
 <!------- BODY END -------->
 </html>
