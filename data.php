@@ -421,7 +421,7 @@
         datasets: [{
             label: 'Total Sleep Duration',
             data: points,
-            backgroundColor: 'rgb(83,69,211, 0.4)',
+            backgroundColor: gradient,
             pointRadius: 0,
             borderColor: 'rgb(83,69,211, 1)'
         }]
