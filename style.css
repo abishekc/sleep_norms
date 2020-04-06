@@ -53,6 +53,7 @@ h3{
 
 #compass{
 	width: 100%;
+    margin-top: 20px;
 }
 
 #left{
@@ -73,8 +74,8 @@ h3{
 	letter-spacing: 2px;
 }
 
-#age_input{
-	width: 200px;
+#age_input, #height_two{
+	width: 70px;
 	height: 40px;
 	border: none;
 	border-bottom: 2px solid #e2e2e2;
@@ -109,6 +110,10 @@ input[type=submit] {
 	font-weight: 700;
 	font-size: 15px;
 
+}
+
+#inches_label{
+    margin-left: 90px;
 }
 
 #gender_div {
@@ -161,4 +166,60 @@ img {
 	width: 650px;
 	text-align: center;
 	margin: 0 auto;
+}
+
+#footer-wrapper {
+    width: 100%;
+    height: 165px;
+    background-color: black;
+    margin-top: 50px;
+    padding-top: 35px;
+}
+
+#footer-inner{
+    width: 900px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#footer {
+    width: 600px;
+    height: 100%;
+    color: white;
+    float: left;
+    font-family: "CircularStd-Black";
+}
+
+#footer-right {
+    width: 300px;
+    height: 100%;
+    float: right;
+    text-align: right;
+}
+
+#berk_logo {
+    width: 200px;
+    height: 63px;
+}
+
+#nav-wrapper {
+    width: 100%;
+    background-color: white;
+}
+
+#nav {
+    width: 1200px;
+    padding: 50px 0px 30px 0px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 32px;
+	font-family: Comfortaa;
+	font-weight: 700;
+    color: #333; 
+}
+
+#nav img{
+    width: 40px;
+    height: 40px;
 }

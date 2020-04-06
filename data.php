@@ -40,7 +40,12 @@
 	$ethnicity = $_POST['ethnicity'];
 	$weight = $_POST['weight'];
 	$height = $_POST['height'];
+    $inches = $_POST['height_two'];
     $metric = $_POST['metric'];
+    
+    if($metric == "imperial"){
+        $height = ($height * 12) + $inches; 
+    }
 
     if($metric == "metric"){
         $weight = $weight * 2.204;
@@ -284,6 +289,24 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+    
+<div id="footer-wrapper">
+    <div id="footer-inner">
+        <div id="footer">
+            <span style="color: #5345d3; font-size: 22px;">
+                Center for Human Sleep Science
+            </span>
+            <br>
+            University of California, Berkeley
+            <br><br><br><br>
+            Copyright 2020
+        </div>
+        
+        <div id="footer-right">
+            <img id="berk_logo" src="img/berk_white.png"/>
         </div>
     </div>
 </div>
